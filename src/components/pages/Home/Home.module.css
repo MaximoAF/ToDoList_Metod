@@ -1,24 +1,74 @@
 .home__container {
   width: 100%;
-  background-color: var(--gray-color);
+  min-height: 100vh;
+  background-color: var(--palet-color-3);
+  display: flex;
+  flex-direction: column;
 }
 .home__headerContainer {
-  background-color: var(--pupUp-color);
+  background-color: var(--palet-color-1);
   color: var(--gray-color);
   margin: 0;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 .home__headerTittle {
   margin: 0;
   font-size: large;
-
 }
 
 /* Content */
-.home__contentContainer{
+.home__contentContainer {
   display: grid;
   grid-template-columns: 1fr 4fr;
+  flex-grow: 1;
 }
-.home__contentMain{
+.home__contentMain {
   background-color: var(--white-color);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.home__contentSider {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+/* Sider */
+.home__siderButton {
+  width: 80%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: var(--palet-color-2);
+  color: var(--white-color);
+}
+.home__siderButtonAdd {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--palet-color-2);
+  color: var(--white-color);
+}
+.home__siderTareasContainer {
+  width: 100%;
+  height: 100%;
+  background-color: var(--white-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Main */
+.home__mainButtonAdd{
+  height: 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--palet-color-2);
+  color: var(--white-color);
 }

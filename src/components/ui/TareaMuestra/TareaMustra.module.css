@@ -1,0 +1,6 @@
+.tareaMuestra__container{
+  width: 100%;
+  background-color: var(--palet-color-6);
+  border-radius: .5rem;
+  padding: 1rem;
+}
