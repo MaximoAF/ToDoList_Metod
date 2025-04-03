@@ -1,0 +1,37 @@
+.tareaBacklog__container{
+  width: 100%;
+  background-color: var(--palet-color-6);
+  border-radius: .5rem;
+  padding: 1rem;
+
+  display: flex;
+   justify-content: space-between;
+}
+.tareaBacklog__buttonAction{
+  min-height: 1rem;
+  width: 2rem;
+  background-color: var(--palet-color-2);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: var(--white-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+}
+.tareaBacklog__input{
+  min-height: 1rem;
+  background-color: var(--palet-color-2);
+  border: 1px solid black;
+  border-radius: 5px;
+  color: var(--white-color);
+
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Ajusta el espacio entre elementos */
+}
