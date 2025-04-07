@@ -1,4 +1,5 @@
-import { ITarea } from "./ITarea";
+import { ITarea } from "../Tarea/ITarea";
+
 
 export interface ISprint {
   id: string;

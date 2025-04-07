@@ -1,39 +1,56 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SprintSider } from "../../ui/SprintSider/SprintSider";
 import styles from "./Home.module.css";
 import { useBacklogStore } from "../../../store/backlogStore";
-import { ITarea } from "../../../types/ITarea";
-import { ISprint } from "../../../types/ISprint";
 import { useSprintStore } from "../../../store/sprintStore";
 import { TareaBacklog } from "../../ui/TareaBacklog/TareaBacklog";
+import { getAllTareasBacklog } from "../../../services/backlog/backlogServices";
+import { getAllSprints } from "../../../services/sprints/sprintsServices";
+import { ModalTarea } from "../../ui/Modals/ModalTarea/ModalTarea";
+import { DeleteTarea } from "../../ui/Modals/DeleteTarea/DeleteTarea";
+import { ViewTarea } from "../../ui/Modals/ViewTarea/ViewTarea";
 
 export const Home = () => {
   const tareas = useBacklogStore((state) => state.tareas);
   const sprints = useSprintStore((state) => state.sprints);
 
+  const [showModalTarea, setShowModalTarea] = useState<boolean>(false);
+  const [showDeleteTarea, setShowDeleteTarea] = useState<boolean>(false);
+  const [showViewTarea, setShowViewTarea] = useState<boolean>(false);
+
   //Obtenemos los datos y asignamos los valores iniciales
   useEffect(() => {
-    const fetchData = async () => {
+    `${import.meta.env.API_URL}/sprints`;
+
+    // Cargamos las Tareas del backlog
+    const fetchDataBacklog = async () => {
       try {
-        const response = await fetch("/db.json");
-        const data: {
-          backlog: { tareas: ITarea[] };
-          sprintList: { sprints: ISprint[] };
-        } = await response.json();
+        const response = await getAllTareasBacklog();
 
         useBacklogStore.setState({
-          tareas: data.backlog.tareas,
-        });
-
-        useSprintStore.setState({
-          sprints: data.sprintList.sprints,
+          tareas: response,
         });
       } catch (error) {
-        console.error("Error cargando los datos:", error);
+        console.error("Error cargando las tareas: ", error);
       }
     };
 
-    fetchData();
+    // Cargamos los Sprints
+    const fetchDataSprints = async () => {
+      try {
+        const response = await getAllSprints();
+
+        useSprintStore.setState({
+          sprints: response,
+        });
+      } catch (error) {
+        console.error("Error cargando los sprints: ", error);
+      }
+    };
+
+    // Ejecutamos las funciones de carga
+    fetchDataBacklog();
+    fetchDataSprints();
   }, []);
 
   return (
@@ -54,7 +71,9 @@ export const Home = () => {
               }}
             >
               <h3 style={{ fontSize: "1.5rem" }}>Lista Sprints</h3>
-              <button className={styles.home__siderButtonAdd}><i className="fa-solid fa-plus"></i></button>
+              <button className={styles.home__siderButtonAdd}>
+                <i className="fa-solid fa-plus"></i>
+              </button>
             </div>
             <div>
               <div
@@ -85,22 +104,45 @@ export const Home = () => {
             <h3 style={{ fontSize: "2rem", fontWeight: "normal" }}>
               Tareas en el Backlog
             </h3>
-            <button className={styles.home__mainButtonAdd}>
+            <button
+              className={styles.home__mainButtonAdd}
+              onClick={() => {
+                console.log(showModalTarea);
+                setShowModalTarea(true);
+              }}
+            >
               Crear tarea{" "}
-              <span style={{ color: "#FFFFFF", fontSize: "1rem" }}><i className="fa-solid fa-plus"></i></span>
+              <span style={{ color: "#FFFFFF", fontSize: "1rem" }}>
+                <i className="fa-solid fa-plus"></i>
+              </span>
             </button>
           </div>
           {/* Mostramos las tareas */}
           {tareas.length > 0 ? (
-                  tareas.map((tra) => {
-                    console.log(tra.titulo);
-                    return <TareaBacklog tarea={tra} />;
-                  })
-                ) : (
-                  <p className={styles.home__siderNoSprints}>No hay Tareas</p>
-                )}
+            tareas.map((tra) => (
+              <TareaBacklog
+                tarea={tra}
+                showModale={() => setShowModalTarea(true)}
+                deleteTarea={() => setShowDeleteTarea(true)}
+                viewTarea={() => setShowViewTarea(true)}
+              />
+            ))
+          ) : (
+            <p className={styles.home__siderNoSprints}>No hay Tareas</p>
+          )}
         </div>
       </div>
+
+      {/* Modals de Tarea*/}
+      {showModalTarea && (
+        <ModalTarea onClose={() => setShowModalTarea(false)} />
+      )}
+      {showDeleteTarea && (
+        <DeleteTarea onClose={() => setShowDeleteTarea(false)} />
+      )}
+      {showViewTarea && (
+        <ViewTarea onClose={() => setShowViewTarea(false)} />
+      )}
     </div>
   );
 };

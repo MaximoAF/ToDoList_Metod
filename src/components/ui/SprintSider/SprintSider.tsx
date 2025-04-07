@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { ISprint } from '../../../types/ISprint';
 import styles from './SprintSider.module.css';
+import { ISprint } from '../../../types/Sprint/ISprint';
 
 interface ISprintSiderProps {
   sprint: ISprint

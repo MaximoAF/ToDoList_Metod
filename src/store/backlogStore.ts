@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IBacklogState } from "../types/IStore/IBacklogState";
+import { IBacklogState } from "../types/Tarea/IStore/IBacklogState";
 
 export const useBacklogStore = create<IBacklogState>((set) => ({
   tareas: [],

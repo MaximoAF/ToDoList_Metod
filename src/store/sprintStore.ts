@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ISprintState } from "../types/IStore/ISprintState";
+import { ISprintState } from "../types/Sprint/IStore/ISprintState";
 
 export const useSprintStore = create<ISprintState>((set) => ({
   sprints: [],

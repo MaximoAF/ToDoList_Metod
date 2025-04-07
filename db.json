@@ -1,68 +1,64 @@
 {
-  "backlog": {
-    "tareas": [
-      {
-        "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
-        "titulo": "Tarea backlog 1",
-        "descripcion": "Descripcion tarea backlog",
-        "estado": "pendiente",
-        "fechaLimite": "2025-03-05"
-      },
-      {
-        "id": "dcec0ad4-31e0-4279-8ccf-sdtrw432",
-        "titulo": "Tarea backlog 2",
-        "descripcion": "Descripcion tarea backlog",
-        "estado": "pendiente",
-        "fechaLimite": "2025-03-05"
-      },
-      {
-        "id": "dcec0ad4-31e0-4279-8ccf-7sd1f20b52d",
-        "titulo": "Tarea bl 17 ",
-        "descripcion": "Descripcion tarea backlog",
-        "estado": "pendiente",
-        "fechaLimite": "2025-03-05"
-      },
-      {
-        "id": "dcec0ad4-31e0-4279-8ccf-32rsdf",
-        "titulo": "Tarea bl 45",
-        "descripcion": "Descripcion tarea backlog",
-        "estado": "pendiente",
-        "fechaLimite": "2025-03-05"
-      }
-    ]
-  },
-  "sprintList": {
-    "sprints": [
-      {
-        "id": "b0e3f34b-68c6-49eb-b059-ab251ed81629",
-        "fechaInicio": "2025-03-04",
-        "fechaCierre": "2025-03-11",
-        "nombre": "Sprint 122",
-        "tareas": [
-          {
-            "id": "50699dec-3d1a-45ff-a94d-82d416eac053",
-            "titulo": "Tarea 2",
-            "descripcion": "Estamos aca",
-            "estado": "pendiente",
-            "fechaLimite": "2025-03-06"
-          }
-        ]
-      },
-      {
-        "id": "jvdkeo35-68c6-49eb-b059-ab251ed81646",
-        "fechaInicio": "2025-02-04",
-        "fechaCierre": "2025-03-04",
-        "nombre": "Sprint 111",
-        "tareas": [
-          {
-            "id": "568c6dec-3d1a-68c6-a94d-82d416eac074",
-            "titulo": "Tarea 3",
-            "descripcion": "Estamos alla",
-            "estado": "pendiente",
-            "fechaLimite": "2025-03-04"
-          }
-        ]
-      }
-    ]
-  }
+  "backlog": [
+    {
+      "id": "2",
+      "titulo": "Tarea backlog 2",
+      "descripcion": "Descripcion tarea backlog",
+      "estado": "pendiente",
+      "fechaLimite": "2025-03-05"
+    },
+    {
+      "id": "3",
+      "titulo": "Tarea bl 17 ",
+      "descripcion": "Descripcion tarea backlog",
+      "estado": "pendiente",
+      "fechaLimite": "2025-03-05"
+    },
+    {
+      "id": "4",
+      "titulo": "Tarea bl 45",
+      "descripcion": "Descripcion tarea backlog",
+      "estado": "pendiente",
+      "fechaLimite": "2025-03-05"
+    },
+    {
+      "id": "225e",
+      "titulo": "Tarea 456",
+      "descripcion": "mucha tarea",
+      "estado": "pendiente",
+      "fechaLimite": "2025-04-30"
+    }
+  ],
+  "sprints": [
+    {
+      "id": "1",
+      "fechaInicio": "2025-03-04",
+      "fechaCierre": "2025-03-11",
+      "nombre": "Sprint 122",
+      "tareas": [
+        {
+          "id": 1,
+          "titulo": "Tarea backlog 1",
+          "descripcion": "Descripcion tarea backlog",
+          "estado": "pendiente",
+          "fechaLimite": "2025-03-05"
+        }
+      ]
+    },
+    {
+      "id": "jvdkeo35-68c6-49eb-b059-ab251ed81646",
+      "fechaInicio": "2025-02-04",
+      "fechaCierre": "2025-03-04",
+      "nombre": "Sprint 111",
+      "tareas": [
+        {
+          "id": 2,
+          "titulo": "Tarea backlog 2",
+          "descripcion": "Descripcion tarea backlog",
+          "estado": "pendiente",
+          "fechaLimite": "2025-03-05"
+        }
+      ]
+    }
+  ]
 }

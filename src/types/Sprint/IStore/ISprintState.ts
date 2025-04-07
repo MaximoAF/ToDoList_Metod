@@ -1,5 +1,6 @@
+import { ITarea } from "../../Tarea/ITarea";
 import { ISprint } from "../ISprint";
-import { ITarea } from "../ITarea";
+
 
 export interface ISprintState {
   sprints: ISprint[];
