@@ -1,10 +1,12 @@
 :root {
   --palet-color-1: #29363C;
-  --palet-color-2: #8b9295;
+  --palet-color-2: #555b5e;
   --palet-color-3: #FECEAA;
   --palet-color-4: #e9e5e5;
   --palet-color-5: #ededed;
-  --palet-color-6: #FFE9D5;
+  --palet-color-6: hsl(0, 20%, 97%);
+
+  --shadow-1: 0 4px 12px rgba(0, 0, 0, 0.1);
 
   --white-color: #fff;
   --black-color: #000;

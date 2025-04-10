@@ -1,13 +1,15 @@
-.tareaBacklog__container{
+.tareaBacklog__container {
   width: 100%;
   background-color: var(--palet-color-6);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
 
   display: flex;
-   justify-content: space-between;
+  justify-content: space-between;
+
+  box-shadow: var(--shadow-1);
 }
-.tareaBacklog__buttonAction{
+.tareaBacklog__buttonAction {
   min-height: 1rem;
   width: 2rem;
   background-color: var(--palet-color-2);
@@ -20,7 +22,7 @@
   align-items: center;
   padding: 3px;
 }
-.tareaBacklog__input{
+.tareaBacklog__input {
   min-height: 1rem;
   background-color: var(--palet-color-2);
   border: 1px solid black;

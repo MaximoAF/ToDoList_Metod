@@ -2,10 +2,10 @@ import { FC, useEffect, useState } from "react";
 import {
   actualizarTareaBacklog,
   crearTareaBacklog,
-} from "../../../../services/backlog/backlogServices";
-import { ICreateTarea } from "../../../../types/Tarea/ICreateTarea";
-import { useBacklogStore } from "../../../../store/backlogStore";
-import styles from "./ModalTarea.module.css";
+} from "../../../../../services/backlog/backlogServices";
+import { ICreateTarea } from "../../../../../types/Tarea/ICreateTarea";
+import { useBacklogStore } from "../../../../../store/backlogStore";
+import styles from "../../Modal.module.css";
 
 interface ModalTareaProps {
   onClose: () => void;

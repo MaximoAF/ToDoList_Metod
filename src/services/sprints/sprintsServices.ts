@@ -22,8 +22,8 @@ export const crearSprint = async (sprint: ICreateSprint) => {
   return await res.json();
 };
 
-export const actualizarSprint = async (id: string, sprint: ISprint) => {
-  const res = await fetch(`${BASE_URL}/${id}`, {
+export const actualizarSprint = async (sprint: ISprint) => {
+  const res = await fetch(`${BASE_URL}/${sprint.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(sprint),

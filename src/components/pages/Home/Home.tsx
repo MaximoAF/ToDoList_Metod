@@ -6,17 +6,26 @@ import { useSprintStore } from "../../../store/sprintStore";
 import { TareaBacklog } from "../../ui/TareaBacklog/TareaBacklog";
 import { getAllTareasBacklog } from "../../../services/backlog/backlogServices";
 import { getAllSprints } from "../../../services/sprints/sprintsServices";
-import { ModalTarea } from "../../ui/Modals/ModalTarea/ModalTarea";
-import { DeleteTarea } from "../../ui/Modals/DeleteTarea/DeleteTarea";
-import { ViewTarea } from "../../ui/Modals/ViewTarea/ViewTarea";
+import { ModalTarea } from "../../ui/Modals/Tarea/ModalTarea/ModalTarea";
+import { DeleteTarea } from "../../ui/Modals/Tarea/DeleteTarea/DeleteTarea";
+import { ViewTarea } from "../../ui/Modals/Tarea/ViewTarea/ViewTarea";
+import { ModalSprint } from "../../ui/Modals/Sprint/ModalSprint/ModalSprint";
+import { ViewSprint } from "../../ui/Modals/Sprint/VeiwSprint/ViewSprint";
+import { DeleteSprint } from "../../ui/Modals/Sprint/DeleteSprint/DeleteSprint";
 
 export const Home = () => {
   const tareas = useBacklogStore((state) => state.tareas);
   const sprints = useSprintStore((state) => state.sprints);
 
+  // Modals de Tarea
   const [showModalTarea, setShowModalTarea] = useState<boolean>(false);
   const [showDeleteTarea, setShowDeleteTarea] = useState<boolean>(false);
   const [showViewTarea, setShowViewTarea] = useState<boolean>(false);
+
+  // Modals de Sprint
+  const [showModalSprint, setShowModalSprint] = useState<boolean>(false);
+  const [showDeleteSprint, setShowDeleteSprint] = useState<boolean>(false);
+  const [showViewSprint, setShowViewSprint] = useState<boolean>(false);
 
   //Obtenemos los datos y asignamos los valores iniciales
   useEffect(() => {
@@ -71,7 +80,10 @@ export const Home = () => {
               }}
             >
               <h3 style={{ fontSize: "1.5rem" }}>Lista Sprints</h3>
-              <button className={styles.home__siderButtonAdd}>
+              <button
+                className={styles.home__siderButtonAdd}
+                onClick={() => setShowModalSprint(true)}
+              >
                 <i className="fa-solid fa-plus"></i>
               </button>
             </div>
@@ -83,11 +95,18 @@ export const Home = () => {
                   gap: "1rem",
                 }}
               >
-                {/* Mostramos los sprints */}
+                {/* ---Mostramos los sprints--- */}
                 {sprints.length > 0 ? (
                   sprints.map((spr) => {
                     console.log(spr.nombre);
-                    return <SprintSider sprint={spr} />;
+                    return (
+                      <SprintSider
+                        sprint={spr}
+                        showModal={() => setShowModalSprint(true)}
+                        viewSprint={() => setShowViewSprint(true)}
+                        deleteSprint={() => setShowDeleteSprint(true)}
+                      />
+                    );
                   })
                 ) : (
                   <p className={styles.home__siderNoSprints}>No hay sprints</p>
@@ -96,6 +115,7 @@ export const Home = () => {
             </div>
           </div>
         </div>
+        {/* ------Seccion del contenido principal--- */}
         <div className={styles.home__contentMain}>
           <div>
             <h1 style={{ fontSize: "2rem" }}>Backlog</h1>
@@ -117,7 +137,7 @@ export const Home = () => {
               </span>
             </button>
           </div>
-          {/* Mostramos las tareas */}
+          {/* ---Mostramos las tareas--- */}
           {tareas.length > 0 ? (
             tareas.map((tra) => (
               <TareaBacklog
@@ -133,15 +153,25 @@ export const Home = () => {
         </div>
       </div>
 
-      {/* Modals de Tarea*/}
+      {/* ---Modals de Tarea--- */}
       {showModalTarea && (
         <ModalTarea onClose={() => setShowModalTarea(false)} />
       )}
       {showDeleteTarea && (
         <DeleteTarea onClose={() => setShowDeleteTarea(false)} />
       )}
-      {showViewTarea && (
-        <ViewTarea onClose={() => setShowViewTarea(false)} />
+      {showViewTarea && <ViewTarea onClose={() => setShowViewTarea(false)} />}
+
+
+      {/* ---Modals de Sprint--- */}
+      {showModalSprint && (
+        <ModalSprint onClose={() => setShowModalSprint(false)} />
+      )}
+      {showViewSprint && (
+        <ViewSprint onClose={()=> setShowViewSprint(false)} />
+      )}
+      {showDeleteSprint && (
+        <DeleteSprint onClose={()=> setShowDeleteSprint(false)} />
       )}
     </div>
   );

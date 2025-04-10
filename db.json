@@ -13,38 +13,9 @@
       "descripcion": "Descripcion tarea backlog",
       "estado": "pendiente",
       "fechaLimite": "2025-03-05"
-    },
-    {
-      "id": "4",
-      "titulo": "Tarea bl 45",
-      "descripcion": "Descripcion tarea backlog",
-      "estado": "pendiente",
-      "fechaLimite": "2025-03-05"
-    },
-    {
-      "id": "225e",
-      "titulo": "Tarea 456",
-      "descripcion": "mucha tarea",
-      "estado": "pendiente",
-      "fechaLimite": "2025-04-30"
     }
   ],
   "sprints": [
-    {
-      "id": "1",
-      "fechaInicio": "2025-03-04",
-      "fechaCierre": "2025-03-11",
-      "nombre": "Sprint 122",
-      "tareas": [
-        {
-          "id": 1,
-          "titulo": "Tarea backlog 1",
-          "descripcion": "Descripcion tarea backlog",
-          "estado": "pendiente",
-          "fechaLimite": "2025-03-05"
-        }
-      ]
-    },
     {
       "id": "jvdkeo35-68c6-49eb-b059-ab251ed81646",
       "fechaInicio": "2025-02-04",
@@ -59,6 +30,13 @@
           "fechaLimite": "2025-03-05"
         }
       ]
+    },
+    {
+      "id": "f3c3",
+      "nombre": "Sprint 12345",
+      "fechaInicio": "2025-04-10",
+      "fechaCierre": "2025-04-30",
+      "tareas": []
     }
   ]
 }

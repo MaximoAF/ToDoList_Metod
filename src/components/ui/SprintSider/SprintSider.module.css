@@ -4,10 +4,17 @@
   min-height: 5rem;
   padding: 1rem;
   border-radius: .5rem;
-
+  
   display: flex;
   flex-direction: column;
   gap: .5rem;
+  
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  transition: all .3s ;
+}
+.sprint__container:hover{
+  scale: 1.03;
 }
 .sprint__buttonAction{
   min-height: 1rem;

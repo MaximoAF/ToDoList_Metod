@@ -15,9 +15,7 @@ export const useSprintStore = create<ISprintState>((set) => ({
   },
   removeSprint: (sprintID) => {
     set((state) => ({
-      sprints: state.sprints.filter((spr) => {
-        spr.id === sprintID;
-      }),
+      sprints: state.sprints.filter((spr) => spr.id !== sprintID),
     }));
   },
   updateSprint: (sprint) => {
