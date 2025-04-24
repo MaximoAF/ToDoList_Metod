@@ -7,6 +7,10 @@ interface IViewSprintProps {
 }
 export const ViewSprint:FC<IViewSprintProps> = ({onClose}) => {
   const sprint = useSprintStore.getState().activeSprint
+  const handleClose = ()=>{
+      useSprintStore.getState().clearActiveSprint();
+      onClose()
+    }
 
   return (
     <div className="overlay">
@@ -21,7 +25,7 @@ export const ViewSprint:FC<IViewSprintProps> = ({onClose}) => {
           <p>{sprint?.fechaCierre}</p>
         </div>
         <div className={styles.modal__containButtons}>
-          <button className={styles.modal__button} onClick={() => onClose()}>
+          <button className={styles.modal__button} onClick={() => handleClose()}>
             Cerrar
           </button>
         </div>

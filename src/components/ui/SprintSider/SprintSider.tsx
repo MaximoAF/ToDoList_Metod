@@ -2,6 +2,7 @@ import { FC } from "react";
 import styles from "./SprintSider.module.css";
 import { ISprint } from "../../../types/Sprint/ISprint";
 import { useSprintStore } from "../../../store/sprintStore";
+import { useNavigate } from "react-router-dom";
 
 interface ISprintSiderProps {
   sprint: ISprint;
@@ -9,21 +10,30 @@ interface ISprintSiderProps {
   viewSprint: () => void;
   deleteSprint: () => void;
 }
-export const SprintSider: FC<ISprintSiderProps> = ({ sprint, showModal, viewSprint, deleteSprint }) => {
+export const SprintSider: FC<ISprintSiderProps> = ({
+  sprint,
+  showModal,
+  viewSprint,
+  deleteSprint,
+}) => {
+  const navigate = useNavigate();
   const handleEditSprint = () => {
     useSprintStore.getState().setActiveSprint(sprint);
     showModal();
   };
   const handleViewSprint = () => {
-    useSprintStore.getState().setActiveSprint(sprint)
-    viewSprint()
-  }
+    useSprintStore.getState().setActiveSprint(sprint);
+    viewSprint();
+  };
   const handleDeleteSprint = () => {
-    useSprintStore.getState().setActiveSprint(sprint)
-    deleteSprint()
-  }
+    useSprintStore.getState().setActiveSprint(sprint);
+    deleteSprint();
+  };
+  const handleNavigate = () => {
+    navigate(`/sprint/${sprint.id}`);
+  };
   return (
-    <div className={styles.sprint__container}>
+    <div className={styles.sprint__container} onClick={handleNavigate}>
       <h3 style={{ fontSize: "1rem" }}>{sprint.nombre}</h3>
       <div>
         <p style={{ fontSize: "1rem", marginLeft: ".5rem" }}>
@@ -36,8 +46,8 @@ export const SprintSider: FC<ISprintSiderProps> = ({ sprint, showModal, viewSpri
       <div
         style={{ display: "flex", justifyContent: "flex-end", gap: ".2rem" }}
       >
-        <button 
-          className={styles.sprint__buttonAction} 
+        <button
+          className={styles.sprint__buttonAction}
           onClick={() => handleViewSprint()}
         >
           <i
@@ -54,9 +64,9 @@ export const SprintSider: FC<ISprintSiderProps> = ({ sprint, showModal, viewSpri
             className="fa-solid fa-pen"
           ></i>
         </button>
-        <button 
+        <button
           className={styles.sprint__buttonAction}
-          onClick={()=> handleDeleteSprint()}
+          onClick={() => handleDeleteSprint()}
         >
           <i
             style={{ color: "var(--white-color)" }}

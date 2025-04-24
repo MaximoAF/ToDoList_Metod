@@ -1,11 +1,14 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { ITarea } from "../../../types/Tarea/ITarea";
 import styles from "./TareaBacklog.module.css";
 import { useBacklogStore } from "../../../store/backlogStore";
 import { useSprintStore } from "../../../store/sprintStore";
+import { ISprint } from "../../../types/Sprint/ISprint";
+import { agregarTareaASprint, eliminarTareaDeSprint } from "../../../services/sprints/sprintsServices";
 
 interface ITareaBacklogProps {
   tarea: ITarea;
+  sprints: ISprint[];
   showModale: () => void;
   deleteTarea: () => void;
   viewTarea: () => void;
@@ -13,10 +16,12 @@ interface ITareaBacklogProps {
 
 export const TareaBacklog: FC<ITareaBacklogProps> = ({
   tarea,
+  sprints,
   showModale,
   deleteTarea,
-  viewTarea
+  viewTarea,
 }) => {
+  const [loading, setLoading] = useState(false);
   const handleEditTarea = () => {
     useBacklogStore.getState().setActiveTarea(tarea);
     showModale();
@@ -28,6 +33,33 @@ export const TareaBacklog: FC<ITareaBacklogProps> = ({
   const handleViewTarea = () => {
     useBacklogStore.getState().setActiveTarea(tarea);
     viewTarea();
+  };
+
+  const obtenerSprintId = () => {
+    const sprintID = sprints.find((s) =>
+      s.tareas.some((t) => String(t.id) === String(tarea.id))
+    );
+    return sprintID ? sprintID.id : "";
+  };
+
+  const handleSelectSprint = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setLoading(true)
+    const sprintId = e.target.value;
+  
+    const sprintAnterior = sprints.find((s) =>
+      s.tareas.some((t) => String(t.id) === String(tarea.id))
+    );
+  
+    if (sprintAnterior) {
+      await eliminarTareaDeSprint(sprintAnterior.id, tarea.id);
+      useSprintStore.getState().removeTareaASprint(tarea.id, sprintAnterior.id);
+    }
+  
+    if (!sprintId) return setLoading(false);
+  
+    await agregarTareaASprint(sprintId, tarea);
+    useSprintStore.getState().addTareaASprint(tarea, sprintId);
+    setLoading(false)
   };
 
   return (
@@ -46,17 +78,22 @@ export const TareaBacklog: FC<ITareaBacklogProps> = ({
         </button>
         <select
           id="options"
-          onChange={(e) => e.preventDefault}
+          onChange={handleSelectSprint}
           className={styles.tareaBacklog__input}
+          style={{width: "12rem"}}
+          value={obtenerSprintId()}
         >
-          <option value="">Seleccione un Sprint</option>
-          {useSprintStore.getState().sprints.map((spr) => (
-            <option value={spr.nombre}>{spr.nombre}</option>
+          <option value="">{loading ? "Cargando..." : "Seleccione un Sprint"}</option>
+          {sprints.map((spr) => (
+            <option key={spr.id} value={spr.id}>
+              {spr.nombre}
+            </option>
           ))}
         </select>
-        <button 
-        className={styles.tareaBacklog__buttonAction}
-        onClick={() => handleViewTarea()}>
+        <button
+          className={styles.tareaBacklog__buttonAction}
+          onClick={() => handleViewTarea()}
+        >
           <i
             style={{ color: "var(--white-color)" }}
             className="fa-solid fa-eye"

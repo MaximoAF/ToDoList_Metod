@@ -35,5 +35,9 @@ export const eliminarTareaBacklog = async (id: string) => {
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "DELETE",
   });
-  return await res.json();
+  if (!res.ok) {
+    // 4xx / 5xx → lanzamos error legible
+    throw new Error(`Back‑end respondió ${res.status}`);
+  }
+  return true;
 };

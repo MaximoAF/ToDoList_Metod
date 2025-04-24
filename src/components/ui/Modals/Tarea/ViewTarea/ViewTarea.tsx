@@ -8,6 +8,10 @@ interface IViewTareaProps {
 
 export const ViewTarea: FC<IViewTareaProps> = ({ onClose }) => {
   const tarea = useBacklogStore.getState().activeTarea;
+  const handleClose = ()=>{
+    useBacklogStore.getState().clearActiveTarea();
+    onClose()
+  }
 
   return (
     <div className="overlay">
@@ -26,7 +30,7 @@ export const ViewTarea: FC<IViewTareaProps> = ({ onClose }) => {
           <p>{tarea?.fechaLimite}</p>
         </div>
         <div className={styles.modal__containButtons}>
-          <button className={styles.modal__button} onClick={() => onClose()}>
+          <button className={styles.modal__button} onClick={() => handleClose()}>
             Cerrar
           </button>
         </div>

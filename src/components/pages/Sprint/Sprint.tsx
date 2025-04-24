@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react";
 import { SprintSider } from "../../ui/SprintSider/SprintSider";
-import styles from "./../Main.module.css";
+import styles from "../Main.module.css";
 import loadingAnimation from "../../../assets/Loading_icon.gif";
 import { useBacklogStore } from "../../../store/backlogStore";
 import { useSprintStore } from "../../../store/sprintStore";
-import { TareaBacklog } from "../../ui/TareaBacklog/TareaBacklog";
 import { getAllTareasBacklog } from "../../../services/backlog/backlogServices";
-import { getAllSprints } from "../../../services/sprints/sprintsServices";
+import {
+  getAllSprints,
+  getSprintById,
+} from "../../../services/sprints/sprintsServices";
 import { ModalTarea } from "../../ui/Modals/Tarea/ModalTarea/ModalTarea";
 import { DeleteTarea } from "../../ui/Modals/Tarea/DeleteTarea/DeleteTarea";
 import { ViewTarea } from "../../ui/Modals/Tarea/ViewTarea/ViewTarea";
 import { ModalSprint } from "../../ui/Modals/Sprint/ModalSprint/ModalSprint";
 import { ViewSprint } from "../../ui/Modals/Sprint/VeiwSprint/ViewSprint";
 import { DeleteSprint } from "../../ui/Modals/Sprint/DeleteSprint/DeleteSprint";
+import { useNavigate, useParams } from "react-router-dom";
+import { CardTareaSprint } from "../../ui/CardTareaSprint/CardTareaSprint";
 
-export const Home = () => {
+export const Sprint = () => {
+  const sprintId = useParams().id || "";
   const [cargandoTar, setCargandoTar] = useState<boolean>(true);
   const [cargandoSpr, setCargandoSpr] = useState<boolean>(true);
-  const tareas = useBacklogStore((state) => state.tareas);
+
   const sprints = useSprintStore((state) => state.sprints);
+  const sprint = sprints.find(s => s.id === sprintId) || null;
+
+  const navigate = useNavigate();
 
   // Modals de Tarea
   const [showModalTarea, setShowModalTarea] = useState<boolean>(false);
@@ -30,10 +38,8 @@ export const Home = () => {
   const [showDeleteSprint, setShowDeleteSprint] = useState<boolean>(false);
   const [showViewSprint, setShowViewSprint] = useState<boolean>(false);
 
-  //Obtenemos los datos y asignamos los valores iniciales
+  // Obtenemos los datos y asignamos los valores iniciales
   useEffect(() => {
-    `${import.meta.env.API_URL}/sprints`;
-
     // Cargamos las Tareas del backlog
     const fetchDataBacklog = async () => {
       try {
@@ -44,8 +50,6 @@ export const Home = () => {
         });
       } catch (error) {
         console.error("Error cargando las tareas: ", error);
-      } finally {
-        setCargandoTar(false);
       }
     };
 
@@ -77,7 +81,12 @@ export const Home = () => {
 
       <div className={styles.main__contentContainer}>
         <div className={styles.main__contentSider}>
-          <button className={styles.main__siderButton}>Backlog</button>
+          <button
+            className={styles.main__siderButton}
+            onClick={() => navigate("/")}
+          >
+            Backlog
+          </button>
           <div className={styles.main__siderTareasContainer}>
             <div
               style={{
@@ -112,62 +121,7 @@ export const Home = () => {
                       deleteSprint={() => setShowDeleteSprint(true)}
                     />
                   ))
-                ) : (
-                  <>
-                    {cargandoSpr ? (
-                      <img
-                        src={loadingAnimation}
-                        alt="cargando..."
-                        style={{ width: "30rem" }}
-                      />
-                    ) : (
-                      <p className={styles.main__siderNoSprints}>
-                        No hay sprints
-                      </p>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* ------Seccion del contenido principal--- */}
-        <div className={styles.main__contentMain}>
-          <div>
-            <h1 style={{ fontSize: "2rem" }}>Backlog</h1>
-          </div>
-          <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
-            <h3 style={{ fontSize: "2rem", fontWeight: "normal" }}>
-              Tareas en el Backlog
-            </h3>
-            <button
-              className={styles.main__mainButtonAdd}
-              onClick={() => {
-                console.log(showModalTarea);
-                setShowModalTarea(true);
-              }}
-            >
-              Crear tarea{" "}
-              <span style={{ color: "#FFFFFF", fontSize: "1rem" }}>
-                <i className="fa-solid fa-plus"></i>
-              </span>
-            </button>
-          </div>
-          <div style={{display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'center'}}>
-            {/* ---Mostramos las tareas--- */}
-            {tareas.length > 0 ? (
-              tareas.map((tra) => (
-                <TareaBacklog
-                  tarea={tra}
-                  sprints={sprints}
-                  showModale={() => setShowModalTarea(true)}
-                  deleteTarea={() => setShowDeleteTarea(true)}
-                  viewTarea={() => setShowViewTarea(true)}
-                />
-              ))
-            ) : (
-              <>
-                {cargandoTar ? (
+                ) : cargandoSpr ? (
                   <img
                     src={loadingAnimation}
                     alt="cargando..."
@@ -176,10 +130,110 @@ export const Home = () => {
                 ) : (
                   <p className={styles.main__siderNoSprints}>No hay sprints</p>
                 )}
-              </>
-            )}
+              </div>
+            </div>
           </div>
         </div>
+        {/* ------Seccion del contenido principal--- */}
+        {!sprint ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              padding: "10rem",
+            }}
+          >
+            <div>
+              {cargandoTar ? (
+                <img
+                  src={loadingAnimation}
+                  alt="cargando..."
+                  style={{ width: "30rem" }}
+                />
+              ) : (
+                <h1 style={{ fontSize: "2rem" }}>No se encontro el Sprint</h1>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className={styles.main__contentMain}>
+            <div>
+              <h1 style={{ fontSize: "2rem" }}>Sprint: {sprint.nombre}</h1>
+            </div>
+            <div style={{ display: "flex", gap: "2rem", alignItems: "center" }}>
+              <h3 style={{ fontSize: "2rem", fontWeight: "normal" }}>
+                Tareas del sprint
+              </h3>
+              <button
+                className={styles.main__mainButtonAdd}
+                onClick={() => {
+                  console.log(showModalTarea);
+                  setShowModalTarea(true);
+                }}
+              >
+                Crear tarea{" "}
+                <span style={{ color: "#FFFFFF", fontSize: "1rem" }}>
+                  <i className="fa-solid fa-plus"></i>
+                </span>
+              </button>
+            </div>
+            {/* ---Mostramos las tareas--- */}
+            {sprint.tareas.length > 0 ? (
+              <div className={styles.sprint__tareasGrid}>
+                <div className={styles.sprint__tareaEstado}>
+                  <p className={styles.sprint__estadoTittle}>Pendiente</p>
+                  <div className={styles.sprint__contCard}>
+                    {sprint.tareas.map(
+                      (tar) =>
+                        tar.estado === "pendiente" && (
+                          <CardTareaSprint
+                            tarea={tar}
+                            showModale={() => setShowModalTarea(true)}
+                            deleteTarea={() => setShowDeleteTarea(true)}
+                            viewTarea={() => setShowViewTarea(true)}
+                          />
+                        )
+                    )}
+                  </div>
+                </div>
+                <div className={styles.sprint__tareaEstado}>
+                  <p className={styles.sprint__estadoTittle}>En proceso</p>
+                  <div className={styles.sprint__contCard}>
+                    {sprint.tareas.map(
+                      (tar) =>
+                        tar.estado === "en proceso" && (
+                          <CardTareaSprint
+                            tarea={tar}
+                            showModale={() => setShowModalTarea(true)}
+                            deleteTarea={() => setShowDeleteTarea(true)}
+                            viewTarea={() => setShowViewTarea(true)}
+                          />
+                        )
+                    )}
+                  </div>
+                </div>
+                <div className={styles.sprint__tareaEstado}>
+                  <p className={styles.sprint__estadoTittle}>Finalizada</p>
+                  <div className={styles.sprint__contCard}>
+                    {sprint.tareas.map(
+                      (tar) =>
+                        tar.estado === "finalizada" && (
+                          <CardTareaSprint
+                            tarea={tar}
+                            showModale={() => setShowModalTarea(true)}
+                            deleteTarea={() => setShowDeleteTarea(true)}
+                            viewTarea={() => setShowViewTarea(true)}
+                          />
+                        )
+                    )}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className={styles.main__siderNoSprints}>No hay Tareas</p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* ---Modals de Tarea--- */}

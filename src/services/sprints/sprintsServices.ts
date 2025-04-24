@@ -1,5 +1,6 @@
 import { ICreateSprint } from "../../types/Sprint/ICreateSprint";
 import { ISprint } from "../../types/Sprint/ISprint";
+import { ITarea } from "../../types/Tarea/ITarea";
 
 const BASE_URL = `${import.meta.env.VITE_API_URL}/sprints`;
 
@@ -29,6 +30,37 @@ export const actualizarSprint = async (sprint: ISprint) => {
     body: JSON.stringify(sprint),
   });
   return await res.json();
+};
+
+export const agregarTareaASprint = async (sprintId: string, tarea: ITarea) => {
+  const sprintRes = await fetch(`${BASE_URL}/${sprintId}`);
+  const sprint = await sprintRes.json();
+
+  const nuevasTareas = [...sprint.tareas, tarea];
+
+  const res = await fetch(`${BASE_URL}/${sprintId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tareas: nuevasTareas }),
+  });
+
+  return await res.json();
+};
+
+export const eliminarTareaDeSprint = async (sprintId: string, tareaId: string) => {
+  const res = await fetch(`${BASE_URL}/${sprintId}`);
+  const sprint = await res.json();
+
+  // Filtrar las tareas para eliminar la deseada
+  const nuevasTareas = sprint.tareas.filter((t:ITarea) => t.id !== tareaId);
+
+  const updateRes = await fetch(`${BASE_URL}/${sprintId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tareas: nuevasTareas }),
+  });
+
+  return await updateRes.json();
 };
 
 export const eliminarSprint = async (id: string) => {

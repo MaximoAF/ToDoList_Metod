@@ -13,6 +13,34 @@
       "descripcion": "Descripcion tarea backlog",
       "estado": "pendiente",
       "fechaLimite": "2025-03-05"
+    },
+    {
+      "id": "a7a3",
+      "titulo": "Tarea 23",
+      "descripcion": "Descripcion de tarea",
+      "estado": "pendiente",
+      "fechaLimite": "2025-04-25"
+    },
+    {
+      "id": "a540",
+      "titulo": "Tarea prueba",
+      "descripcion": "description ",
+      "fechaLimite": "2025-04-30",
+      "estado": "pendiente"
+    },
+    {
+      "id": "ce19",
+      "titulo": "Tarea 55",
+      "descripcion": "tarea 55 que se yo",
+      "fechaLimite": "2025-04-26",
+      "estado": "pendiente"
+    },
+    {
+      "id": "7baa",
+      "titulo": "Tarea 115",
+      "descripcion": "tarea 115 descripcion ej",
+      "fechaLimite": "2025-04-26",
+      "estado": "pendiente"
     }
   ],
   "sprints": [
@@ -23,11 +51,18 @@
       "nombre": "Sprint 111",
       "tareas": [
         {
-          "id": 2,
-          "titulo": "Tarea backlog 2",
+          "id": "3",
+          "titulo": "Tarea bl 17 ",
           "descripcion": "Descripcion tarea backlog",
           "estado": "pendiente",
           "fechaLimite": "2025-03-05"
+        },
+        {
+          "id": "a7a3",
+          "titulo": "Tarea 23",
+          "descripcion": "Descripcion de tarea",
+          "estado": "pendiente",
+          "fechaLimite": "2025-04-25"
         }
       ]
     },
@@ -35,6 +70,13 @@
       "id": "f3c3",
       "nombre": "Sprint 12345",
       "fechaInicio": "2025-04-10",
+      "fechaCierre": "2025-04-30",
+      "tareas": []
+    },
+    {
+      "id": "bdae",
+      "nombre": "Sprint Fast 1",
+      "fechaInicio": "2025-04-24",
       "fechaCierre": "2025-04-30",
       "tareas": []
     }

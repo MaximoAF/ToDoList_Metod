@@ -25,11 +25,19 @@ export const useSprintStore = create<ISprintState>((set) => ({
       ),
     }));
   },
-  addTareaASprint: (tarea, sprintID) => {
+  addTareaASprint: (tarea, sprintId) => {
     set((state) => ({
       sprints: state.sprints.map((spr) =>
-        spr.id === sprintID ? { ...spr, tareas: [...spr.tareas, tarea] } : spr
+        spr.id === sprintId ? { ...spr, tareas: [...spr.tareas, tarea] } : spr
       ),
     }));
   },
+  removeTareaASprint: (tareaId, sprintId) =>
+    set(state => ({
+      sprints: state.sprints.map(spr =>
+        spr.id === sprintId
+          ? { ...spr, tareas: spr.tareas.filter(t => String(t.id)  !== String(tareaId)) }
+          : spr
+      ),
+    })),
 }));
