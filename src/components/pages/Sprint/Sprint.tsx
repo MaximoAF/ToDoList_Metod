@@ -5,10 +5,7 @@ import loadingAnimation from "../../../assets/Loading_icon.gif";
 import { useBacklogStore } from "../../../store/backlogStore";
 import { useSprintStore } from "../../../store/sprintStore";
 import { getAllTareasBacklog } from "../../../services/backlog/backlogServices";
-import {
-  getAllSprints,
-  getSprintById,
-} from "../../../services/sprints/sprintsServices";
+import { getAllSprints } from "../../../services/sprints/sprintsServices";
 import { ModalTarea } from "../../ui/Modals/Tarea/ModalTarea/ModalTarea";
 import { DeleteTarea } from "../../ui/Modals/Tarea/DeleteTarea/DeleteTarea";
 import { ViewTarea } from "../../ui/Modals/Tarea/ViewTarea/ViewTarea";
@@ -24,7 +21,7 @@ export const Sprint = () => {
   const [cargandoSpr, setCargandoSpr] = useState<boolean>(true);
 
   const sprints = useSprintStore((state) => state.sprints);
-  const sprint = sprints.find(s => s.id === sprintId) || null;
+  const sprint = sprints.find((s) => s.id === sprintId) || null;
 
   const navigate = useNavigate();
 
@@ -50,6 +47,8 @@ export const Sprint = () => {
         });
       } catch (error) {
         console.error("Error cargando las tareas: ", error);
+      } finally {
+        setCargandoTar(false);
       }
     };
 
@@ -167,7 +166,7 @@ export const Sprint = () => {
               <button
                 className={styles.main__mainButtonAdd}
                 onClick={() => {
-                  console.log(showModalTarea);
+                  useSprintStore.getState().setActiveSprint(sprint);
                   setShowModalTarea(true);
                 }}
               >
@@ -188,6 +187,7 @@ export const Sprint = () => {
                         tar.estado === "pendiente" && (
                           <CardTareaSprint
                             tarea={tar}
+                            sprint={sprint}
                             showModale={() => setShowModalTarea(true)}
                             deleteTarea={() => setShowDeleteTarea(true)}
                             viewTarea={() => setShowViewTarea(true)}
@@ -204,6 +204,7 @@ export const Sprint = () => {
                         tar.estado === "en proceso" && (
                           <CardTareaSprint
                             tarea={tar}
+                            sprint={sprint}
                             showModale={() => setShowModalTarea(true)}
                             deleteTarea={() => setShowDeleteTarea(true)}
                             viewTarea={() => setShowViewTarea(true)}
@@ -220,6 +221,7 @@ export const Sprint = () => {
                         tar.estado === "finalizada" && (
                           <CardTareaSprint
                             tarea={tar}
+                            sprint={sprint}
                             showModale={() => setShowModalTarea(true)}
                             deleteTarea={() => setShowDeleteTarea(true)}
                             viewTarea={() => setShowViewTarea(true)}

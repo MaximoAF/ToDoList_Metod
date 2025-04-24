@@ -8,20 +8,6 @@
       "fechaLimite": "2025-03-05"
     },
     {
-      "id": "3",
-      "titulo": "Tarea bl 17 ",
-      "descripcion": "Descripcion tarea backlog",
-      "estado": "pendiente",
-      "fechaLimite": "2025-03-05"
-    },
-    {
-      "id": "a7a3",
-      "titulo": "Tarea 23",
-      "descripcion": "Descripcion de tarea",
-      "estado": "pendiente",
-      "fechaLimite": "2025-04-25"
-    },
-    {
       "id": "a540",
       "titulo": "Tarea prueba",
       "descripcion": "description ",
@@ -33,7 +19,7 @@
       "titulo": "Tarea 55",
       "descripcion": "tarea 55 que se yo",
       "fechaLimite": "2025-04-26",
-      "estado": "pendiente"
+      "estado": "en proceso"
     },
     {
       "id": "7baa",
@@ -41,6 +27,27 @@
       "descripcion": "tarea 115 descripcion ej",
       "fechaLimite": "2025-04-26",
       "estado": "pendiente"
+    },
+    {
+      "id": "0ad1",
+      "titulo": "Tarea tarea",
+      "descripcion": "mamahuevo",
+      "fechaLimite": "2025-04-26",
+      "estado": "finalizada"
+    },
+    {
+      "id": "976c",
+      "titulo": "tartar",
+      "descripcion": "tatata",
+      "fechaLimite": "2025-04-26",
+      "estado": "pendiente"
+    },
+    {
+      "id": "7ce6",
+      "titulo": "tartatatataty",
+      "descripcion": "hjshdfjhkjshkjf",
+      "fechaLimite": "2025-04-25",
+      "estado": "en proceso"
     }
   ],
   "sprints": [
@@ -51,18 +58,53 @@
       "nombre": "Sprint 111",
       "tareas": [
         {
-          "id": "3",
-          "titulo": "Tarea bl 17 ",
+          "id": "7ce6",
+          "titulo": "tartatatataty",
+          "descripcion": "hjshdfjhkjshkjf",
+          "fechaLimite": "2025-04-25",
+          "estado": "en proceso"
+        },
+        {
+          "id": "976c",
+          "titulo": "tartar",
+          "descripcion": "tatata",
+          "fechaLimite": "2025-04-26",
+          "estado": "pendiente"
+        },
+        {
+          "id": "0ad1",
+          "titulo": "Tarea tarea",
+          "descripcion": "mamahuevo",
+          "fechaLimite": "2025-04-26",
+          "estado": "finalizada"
+        },
+        {
+          "id": "7baa",
+          "titulo": "Tarea 115",
+          "descripcion": "tarea 115 descripcion ej",
+          "fechaLimite": "2025-04-26",
+          "estado": "pendiente"
+        },
+        {
+          "id": "ce19",
+          "titulo": "Tarea 55",
+          "descripcion": "tarea 55 que se yo",
+          "fechaLimite": "2025-04-26",
+          "estado": "en proceso"
+        },
+        {
+          "id": "a540",
+          "titulo": "Tarea prueba",
+          "descripcion": "description ",
+          "fechaLimite": "2025-04-30",
+          "estado": "pendiente"
+        },
+        {
+          "id": "2",
+          "titulo": "Tarea backlog 2",
           "descripcion": "Descripcion tarea backlog",
           "estado": "pendiente",
           "fechaLimite": "2025-03-05"
-        },
-        {
-          "id": "a7a3",
-          "titulo": "Tarea 23",
-          "descripcion": "Descripcion de tarea",
-          "estado": "pendiente",
-          "fechaLimite": "2025-04-25"
         }
       ]
     },

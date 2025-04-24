@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { ISprintState } from "../types/Sprint/IStore/ISprintState";
+import { ITarea } from "../types/Tarea/ITarea";
 
 export const useSprintStore = create<ISprintState>((set) => ({
   sprints: [],
@@ -32,12 +33,27 @@ export const useSprintStore = create<ISprintState>((set) => ({
       ),
     }));
   },
-  removeTareaASprint: (tareaId, sprintId) =>
+  removeTareaASprint: (tareaId, sprintId) =>{
     set(state => ({
       sprints: state.sprints.map(spr =>
         spr.id === sprintId
           ? { ...spr, tareas: spr.tareas.filter(t => String(t.id)  !== String(tareaId)) }
           : spr
       ),
-    })),
+    }))
+  },
+  editTareaEnSprint: (tarea: ITarea, sprintId: string ) => {
+    set((state) => ({
+      sprints: state.sprints.map((spr) =>
+        spr.id === sprintId
+          ? {
+              ...spr,
+              tareas: spr.tareas.map((t) =>
+                t.id === tarea.id ? tarea : t
+              ),
+            }
+          : spr
+      ),
+    }));
+  },
 }));

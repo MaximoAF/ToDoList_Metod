@@ -7,7 +7,7 @@ import { ICreateTarea } from "../../../../../types/Tarea/ICreateTarea";
 import { useBacklogStore } from "../../../../../store/backlogStore";
 import styles from "../../Modal.module.css";
 import { useSprintStore } from "../../../../../store/sprintStore";
-import { agregarTareaASprint } from "../../../../../services/sprints/sprintsServices";
+import { agregarTareaASprint, updateTareaASprint } from "../../../../../services/sprints/sprintsServices";
 import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
@@ -57,15 +57,23 @@ export const ModalTarea: FC<ModalTareaProps> = ({ onClose }) => {
           id: isUpdate.id,
           ...tarea,
         };
+        // Actualizamos
         const tareaActualizada = await actualizarTareaBacklog(tareaUpdated);
         useBacklogStore.getState().updateTarea(tareaActualizada);
         useBacklogStore.getState().clearActiveTarea();
+        if (isInSprint) {
+          await updateTareaASprint(isInSprint.id, tareaActualizada);
+          useSprintStore.getState().editTareaEnSprint(tareaActualizada, isInSprint.id);
+          useSprintStore.getState().clearActiveSprint();
+        }
       } else {
+        // Creamos 
         const tareaCreada = await crearTareaBacklog(tarea);
         useBacklogStore.getState().addTarea(tareaCreada);
         if (isInSprint) {
           await agregarTareaASprint(isInSprint.id, tareaCreada);
           useSprintStore.getState().addTareaASprint(tareaCreada, isInSprint.id);
+          useSprintStore.getState().clearActiveSprint();
         }
       }
     } catch (error) {

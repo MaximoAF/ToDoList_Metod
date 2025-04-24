@@ -47,6 +47,25 @@ export const agregarTareaASprint = async (sprintId: string, tarea: ITarea) => {
   return await res.json();
 };
 
+export const updateTareaASprint = async (sprintId: string, tarea: ITarea) => {
+  const sprintRes = await fetch(`${BASE_URL}/${sprintId}`);
+  const sprint: ISprint = await sprintRes.json();
+
+  /* 2. Buscamos si la tarea ya existe */
+  const tareasActualizadas = sprint.tareas.some((t) => t.id === tarea.id)
+    ? sprint.tareas.map((t) => (t.id === tarea.id ? tarea : t)) // reemplazar
+    : [...sprint.tareas, tarea]; // agregar al final
+
+  /* 3. Enviamos el PATCH (solo cambia el array tareas) */
+  const res = await fetch(`${BASE_URL}/${sprintId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ tareas: tareasActualizadas }),
+  });
+
+  return await res.json();
+};
+
 export const eliminarTareaDeSprint = async (sprintId: string, tareaId: string) => {
   const res = await fetch(`${BASE_URL}/${sprintId}`);
   const sprint = await res.json();

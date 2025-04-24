@@ -14,4 +14,5 @@ export interface ISprintState {
   updateSprint: (sprint: ISprint) => void;
   addTareaASprint: (tarea: ITarea, sprintID: string) => void;
   removeTareaASprint: (tareaId: string, sprintID: string) => void;
+  editTareaEnSprint: (tarea: ITarea, sprintID: string) => void;
 }
