@@ -70,6 +70,7 @@ html ::-webkit-scrollbar,
 }
 button {
   transition: all 0.2s;
+  border: 1px var(--black-color) solid
 }
 button:hover {
   transform: scale(1.05);

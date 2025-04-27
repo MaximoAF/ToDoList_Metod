@@ -19,8 +19,8 @@ interface ModalTareaProps {
 const today = new Date().toISOString().split("T")[0];
 
 const tareaSchema = yup.object({
-  titulo: yup.string().required("titulo es obligatoria").max(40, "titulo muy grande"),
-  descripcion: yup.string().required("descripcion obligatoria").max(200, "descripcion muy grande"),
+  titulo: yup.string().required("titulo es obligatoria").max(40, "titulo muy grande").min(4, "titulo muy corto"),
+  descripcion: yup.string().required("descripcion obligatoria").max(200, "descripcion muy grande").min(4, "descripcion muy corta"),
   fechaLimite: yup
     .string() // <‑‑ cambia a date
     .test(

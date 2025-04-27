@@ -2,89 +2,123 @@ import { ICreateSprint } from "../../types/Sprint/ICreateSprint";
 import { ISprint } from "../../types/Sprint/ISprint";
 import { ITarea } from "../../types/Tarea/ITarea";
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}/sprints`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}/sprintList`;
 
+/* 🔹 Obtener todos los sprints */
 export const getAllSprints = async () => {
   const res = await fetch(BASE_URL);
-  return await res.json();
+  const data = await res.json();
+  return data.sprints;
 };
 
+/* 🔹 Obtener sprint por ID */
 export const getSprintById = async (id: string) => {
-  const res = await fetch(`${BASE_URL}/${id}`);
-  return await res.json();
+  const res = await fetch(BASE_URL);
+  const data = await res.json();
+  return data.sprints.find((s: ISprint) => s.id === id);
 };
 
+/* 🔹 Crear nuevo sprint */
 export const crearSprint = async (sprint: ICreateSprint) => {
-  const res = await fetch(BASE_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(sprint),
-  });
-  return await res.json();
-};
+  const sprints = await getAllSprints();
+  const nuevoSprint = { ...sprint, id: Date.now().toString(), tareas: [] };
+  const nuevosSprints = [...sprints, nuevoSprint];
 
-export const actualizarSprint = async (sprint: ISprint) => {
-  const res = await fetch(`${BASE_URL}/${sprint.id}`, {
+  await fetch(BASE_URL, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(sprint),
+    body: JSON.stringify({ sprints: nuevosSprints }),
   });
-  return await res.json();
+
+  return nuevoSprint;
 };
 
+/* 🔹 Actualizar sprint */
+export const actualizarSprint = async (sprint: ISprint) => {
+  const sprints = await getAllSprints();
+  const nuevosSprints = sprints.map((s: ISprint) =>
+    s.id === sprint.id ? sprint : s
+  );
+
+  await fetch(BASE_URL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sprints: nuevosSprints }),
+  });
+
+  return sprint;
+};
+
+/* 🔹 Agregar tarea a sprint */
 export const agregarTareaASprint = async (sprintId: string, tarea: ITarea) => {
-  const sprintRes = await fetch(`${BASE_URL}/${sprintId}`);
-  const sprint = await sprintRes.json();
+  const sprints = await getAllSprints();
+  const nuevosSprints = sprints.map((s: ISprint) =>
+    s.id === sprintId
+      ? { ...s, tareas: [...s.tareas, { ...tarea, id: Date.now().toString() }] }
+      : s
+  );
 
-  const nuevasTareas = [...sprint.tareas, tarea];
-
-  const res = await fetch(`${BASE_URL}/${sprintId}`, {
-    method: "PATCH",
+  await fetch(BASE_URL, {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tareas: nuevasTareas }),
+    body: JSON.stringify({ sprints: nuevosSprints }),
   });
 
-  return await res.json();
+  return true;
 };
 
+/* 🔹 Actualizar tarea de sprint */
 export const updateTareaASprint = async (sprintId: string, tarea: ITarea) => {
-  const sprintRes = await fetch(`${BASE_URL}/${sprintId}`);
-  const sprint: ISprint = await sprintRes.json();
-
-  /* 2. Buscamos si la tarea ya existe */
-  const tareasActualizadas = sprint.tareas.some((t) => t.id === tarea.id)
-    ? sprint.tareas.map((t) => (t.id === tarea.id ? tarea : t)) // reemplazar
-    : [...sprint.tareas, tarea]; // agregar al final
-
-  /* 3. Enviamos el PATCH (solo cambia el array tareas) */
-  const res = await fetch(`${BASE_URL}/${sprintId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tareas: tareasActualizadas }),
+  const sprints = await getAllSprints();
+  const nuevosSprints = sprints.map((s: ISprint) => {
+    if (s.id === sprintId) {
+      const tareasActualizadas = s.tareas.map((t) =>
+        t.id === tarea.id ? tarea : t
+      );
+      return { ...s, tareas: tareasActualizadas };
+    }
+    return s;
   });
 
-  return await res.json();
+  await fetch(BASE_URL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sprints: nuevosSprints }),
+  });
+
+  return true;
 };
 
+/* 🔹 Eliminar tarea de sprint */
 export const eliminarTareaDeSprint = async (sprintId: string, tareaId: string) => {
-  const res = await fetch(`${BASE_URL}/${sprintId}`);
-  const sprint = await res.json();
-
-  // Filtrar las tareas para eliminar la deseada
-  const nuevasTareas = sprint.tareas.filter((t:ITarea) => t.id !== tareaId);
-
-  const updateRes = await fetch(`${BASE_URL}/${sprintId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ tareas: nuevasTareas }),
+  const sprints = await getAllSprints();
+  const nuevosSprints = sprints.map((s: ISprint) => {
+    if (s.id === sprintId) {
+      const nuevasTareas = s.tareas.filter((t) => t.id !== tareaId);
+      return { ...s, tareas: nuevasTareas };
+    }
+    return s;
   });
 
-  return await updateRes.json();
+  await fetch(BASE_URL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sprints: nuevosSprints }),
+  });
+
+  return true;
 };
 
+/* 🔹 Eliminar sprint */
 export const eliminarSprint = async (id: string) => {
-  const res = await fetch(`${BASE_URL}/${id}`, {
-    method: "DELETE",
+  const sprints = await getAllSprints();
+  const nuevosSprints = sprints.filter((s: ISprint) => s.id !== id);
+
+  await fetch(BASE_URL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sprints: nuevosSprints }),
   });
-  return await res.json();
+
+  return true;
 };

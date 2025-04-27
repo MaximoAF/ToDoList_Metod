@@ -1,126 +1,54 @@
 {
-  "backlog": [
-    {
-      "id": "2",
-      "titulo": "Tarea backlog 2",
-      "descripcion": "Descripcion tarea backlog",
-      "estado": "pendiente",
-      "fechaLimite": "2025-03-05"
-    },
-    {
-      "id": "a540",
-      "titulo": "Tarea prueba",
-      "descripcion": "description ",
-      "fechaLimite": "2025-04-30",
-      "estado": "pendiente"
-    },
-    {
-      "id": "ce19",
-      "titulo": "Tarea 55",
-      "descripcion": "tarea 55 que se yo",
-      "fechaLimite": "2025-04-26",
-      "estado": "en proceso"
-    },
-    {
-      "id": "7baa",
-      "titulo": "Tarea 115",
-      "descripcion": "tarea 115 descripcion ej",
-      "fechaLimite": "2025-04-26",
-      "estado": "pendiente"
-    },
-    {
-      "id": "0ad1",
-      "titulo": "Tarea tarea",
-      "descripcion": "mamahuevo",
-      "fechaLimite": "2025-04-26",
-      "estado": "finalizada"
-    },
-    {
-      "id": "976c",
-      "titulo": "tartar",
-      "descripcion": "tatata",
-      "fechaLimite": "2025-04-26",
-      "estado": "pendiente"
-    },
-    {
-      "id": "7ce6",
-      "titulo": "tartatatataty",
-      "descripcion": "hjshdfjhkjshkjf",
-      "fechaLimite": "2025-04-25",
-      "estado": "en proceso"
-    }
-  ],
-  "sprints": [
-    {
-      "id": "jvdkeo35-68c6-49eb-b059-ab251ed81646",
-      "fechaInicio": "2025-02-04",
-      "fechaCierre": "2025-03-04",
-      "nombre": "Sprint 111",
-      "tareas": [
-        {
-          "id": "7ce6",
-          "titulo": "tartatatataty",
-          "descripcion": "hjshdfjhkjshkjf",
-          "fechaLimite": "2025-04-25",
-          "estado": "en proceso"
-        },
-        {
-          "id": "976c",
-          "titulo": "tartar",
-          "descripcion": "tatata",
-          "fechaLimite": "2025-04-26",
-          "estado": "pendiente"
-        },
-        {
-          "id": "0ad1",
-          "titulo": "Tarea tarea",
-          "descripcion": "mamahuevo",
-          "fechaLimite": "2025-04-26",
-          "estado": "finalizada"
-        },
-        {
-          "id": "7baa",
-          "titulo": "Tarea 115",
-          "descripcion": "tarea 115 descripcion ej",
-          "fechaLimite": "2025-04-26",
-          "estado": "pendiente"
-        },
-        {
-          "id": "ce19",
-          "titulo": "Tarea 55",
-          "descripcion": "tarea 55 que se yo",
-          "fechaLimite": "2025-04-26",
-          "estado": "en proceso"
-        },
-        {
-          "id": "a540",
-          "titulo": "Tarea prueba",
-          "descripcion": "description ",
-          "fechaLimite": "2025-04-30",
-          "estado": "pendiente"
-        },
-        {
-          "id": "2",
-          "titulo": "Tarea backlog 2",
-          "descripcion": "Descripcion tarea backlog",
-          "estado": "pendiente",
-          "fechaLimite": "2025-03-05"
-        }
-      ]
-    },
-    {
-      "id": "f3c3",
-      "nombre": "Sprint 12345",
-      "fechaInicio": "2025-04-10",
-      "fechaCierre": "2025-04-30",
-      "tareas": []
-    },
-    {
-      "id": "bdae",
-      "nombre": "Sprint Fast 1",
-      "fechaInicio": "2025-04-24",
-      "fechaCierre": "2025-04-30",
-      "tareas": []
-    }
-  ]
+  "backlog": {
+    "tareas": [
+      {
+        "id": "dcec0ad4-31e0-4279-8ccf-72bd1f20b52d",
+        "titulo": "Tarea Backlog",
+        "descripcion": "Descripcion tarea backlog",
+        "estado": "pendiente",
+        "fechaLimite": "2025-03-05"
+      },
+      {
+        "id": "1745773313446",
+        "titulo": "Update Figma ",
+        "descripcion": "Actualizar el diseño del figma",
+        "fechaLimite": "2025-05-04",
+        "estado": "pendiente"
+      }
+    ]
+  },
+  "sprintList": {
+    "sprints": [
+      {
+        "id": "b0e3f34b-68c6-49eb-b059-ab251ed81629",
+        "fechaInicio": "2025-03-04",
+        "fechaCierre": "2025-03-11",
+        "nombre": "Sprint 122",
+        "tareas": [
+          {
+            "id": "1745773236938",
+            "titulo": "Tarea Backlog",
+            "descripcion": "Descripcion tarea backlog",
+            "estado": "pendiente",
+            "fechaLimite": "2025-03-05"
+          }
+        ]
+      },
+      {
+        "nombre": "Sprint UI",
+        "fechaInicio": "2025-04-27",
+        "fechaCierre": "2025-05-14",
+        "tareas": [
+          {
+            "titulo": "Update Figma disign",
+            "descripcion": "Actualizar el diseño del figma",
+            "fechaLimite": "2025-05-04",
+            "estado": "pendiente",
+            "id": "1745773313464"
+          }
+        ],
+        "id": "1745773273746"
+      }
+    ]
+  }
 }
